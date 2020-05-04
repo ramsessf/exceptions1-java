@@ -1,11 +1,11 @@
-package solucaoMuitoRuim.application;
+package application;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import solucaoMuitoRuim.entities.Reservation;
+import entities.Reservation;
 
 public class Program {
 
@@ -26,8 +26,8 @@ public class Program {
 		Date checkout = sdf.parse(sc.nextLine());
 
 		Reservation reservation = new Reservation(roomNumber, checkin, checkout);
-		
-		if(!checkout.after(checkin)) {
+
+		if (!checkout.after(checkin)) {
 			System.out.println("Error in reservation: Check-out date must be after check-in date!");
 		}
 
@@ -42,18 +42,17 @@ public class Program {
 		System.out.print("check-out date (dd/MMM/yyyy):");
 		checkout = sdf.parse(sc.nextLine());
 
-		Date now = new Date();
-		if (checkin.before(now) || checkout.before(now)) {
-			System.out.println("Error in reservation: dates for update must be futures!");
+		String error = reservation.updateDates(checkin, checkout);
 
-		} else if (!checkout.after(checkin)) {
-			System.out.println("Error in reservation: Check-out date must be after check-in date!");
-
-		} else {
-			reservation.updateDates(checkin, checkout);
+		if (error != null) {
+			System.out.println("Error in reservation: " + error);
+		} 
+		else {
 			System.out.println("Reservation: " + reservation);
+
 		}
 
+		sc.close();
 	}
 
 }
