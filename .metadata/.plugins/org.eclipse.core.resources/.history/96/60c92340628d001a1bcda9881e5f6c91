@@ -1,0 +1,5 @@
+package solucaoRuim.entities;
+
+public class Reservation {
+
+}
